@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -42,9 +43,10 @@ class _LoginPage extends State<LoginPage> {
             ),
             Container(
               width: 317,
-              child: const TextField(
+              child: TextField(
                 decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.person),
+                  prefixIcon:
+                      SvgPicture.asset('assets/images/icons/ic_account.svg'),
                   hintText: "Username",
                   // hintStyle:
                 ),
