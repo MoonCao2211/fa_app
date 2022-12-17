@@ -1,0 +1,8 @@
+{
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    },
+    "diffEditor.codeLens": true,
+    "editor.formatOnSave": true
+  }
+  
