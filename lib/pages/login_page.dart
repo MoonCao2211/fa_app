@@ -9,6 +9,23 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPage extends State<LoginPage> {
+  late bool showPassWord;
+  late bool isRememberMe;
+
+  late String username = "lamquangky";
+  late String password = "12345678";
+  late TextEditingController usernameTextEditingController =
+      TextEditingController();
+  late TextEditingController passwordTextEditingController =
+      TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    showPassWord = true;
+    isRememberMe = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -53,6 +70,7 @@ class _LoginPage extends State<LoginPage> {
                   ),
                 ),
                 child: TextField(
+                  controller: usernameTextEditingController,
                   textAlignVertical: TextAlignVertical.bottom,
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -85,6 +103,8 @@ class _LoginPage extends State<LoginPage> {
                   ),
                 ),
                 child: TextField(
+                  controller: passwordTextEditingController,
+                  obscureText: showPassWord,
                   textAlignVertical: TextAlignVertical.bottom,
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -98,11 +118,21 @@ class _LoginPage extends State<LoginPage> {
                     suffixIconConstraints:
                         BoxConstraints(maxWidth: 26, maxHeight: 12),
                     suffixIcon: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(
+                          () {
+                            showPassWord = !showPassWord;
+                          },
+                        );
+                      },
                       padding: EdgeInsets.zero,
-                      icon: SvgPicture.asset(
-                        "assets/images/icons/ic_eye_3.svg",
-                      ),
+                      icon: showPassWord == true
+                          ? SvgPicture.asset(
+                              "assets/images/icons/ic_eye_3.svg",
+                            )
+                          : SvgPicture.asset(
+                              "assets/images/icons/ic_close_eye.svg",
+                            ),
                     ),
                   ),
                 ),
@@ -115,18 +145,34 @@ class _LoginPage extends State<LoginPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Container(
-                      width: 24,
-                      height: 24,
-                      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Color(0xFFA6A6A6),
+                    GestureDetector(
+                      onTap: () {
+                        setState(
+                          () {
+                            isRememberMe = !isRememberMe;
+                          },
+                        );
+                      },
+                      child: Container(
+                        width: 24,
+                        height: 24,
+                        padding:
+                            EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: isRememberMe == false
+                                ? Color(0xFFA6A6A6)
+                                : Color(0xFF01B053),
+                          ),
+                          borderRadius: BorderRadius.circular(4.0),
                         ),
-                        borderRadius: BorderRadius.circular(4.0),
+                        child: SvgPicture.asset(
+                          "assets/images/icons/ic_check.svg",
+                          color: isRememberMe == false
+                              ? Color(0xFFA6A6A6)
+                              : Color(0xFF01B053),
+                        ),
                       ),
-                      child:
-                          SvgPicture.asset("assets/images/icons/ic_check.svg"),
                     ),
                     SizedBox(
                       width: 4,
@@ -141,17 +187,29 @@ class _LoginPage extends State<LoginPage> {
               const SizedBox(
                 height: 24,
               ),
-              Container(
-                width: 200,
-                height: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(200.0),
-                  color: const Color(0xFF2D9CDB),
-                ),
-                child: const Center(
-                  child: Text(
-                    "Sign in",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+              GestureDetector(
+                onTap: () {
+                  if (usernameTextEditingController.text.compareTo(username) ==
+                          0 &&
+                      passwordTextEditingController.text.compareTo(password) ==
+                          0) {
+                    print("dang nhap thanh cong");
+                  } else {
+                    print("dang nhap khong thanh cong");
+                  }
+                },
+                child: Container(
+                  width: 200,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(200.0),
+                    color: const Color(0xFF2D9CDB),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      "Sign in",
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
                   ),
                 ),
               ),
